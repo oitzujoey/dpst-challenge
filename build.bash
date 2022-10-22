@@ -1,3 +1,3 @@
 #!/bin/bash
 
-clang -g -Wall -pedantic-errors main.c
+gcc -g -Wall -pedantic-errors main.c
