@@ -4,13 +4,12 @@
 #include <ctype.h>
 #include <string.h>
 
-#define DOTIMES(I, TOP) for (ptrdiff_t I = 0; (size_t)I < (TOP); I++)
+#define DOTIMES(I, TOP) for (ptrdiff_t I = 0; (size_t) I < (TOP); I++)
 #define LSTR(value) value, sizeof(value) - 1
 
 /* "Cons" is just another name for a link in a list. Usually conses imply garbage collection, which is one reason I have
-   used that name instead of "link". There is currently no garbage collection, but I will add that later. This has the
-   advantage that it effectively gives me malloc while still only using static allocation, plus I don't have to worry
-   about freeing memory anywhere other than the collector. */
+   used that name instead of "link". This has the advantage that it effectively gives me malloc while still only using
+   static allocation, plus I only have to worry about freeing memory in one place. */
 
 typedef struct cons_s {
 	size_t length;
@@ -322,6 +321,8 @@ const cons_t *parse(const cons_t *list, const char *source) {
 
 typedef int (*sort_callback_t)(const cons_t *left, const cons_t *right);
 
+/* I would have used conses with copious amounts of memory to perform the sort, but the specification requires
+   "reassigning pointer links". */
 const cons_t *insertionSort(const cons_t *list, sort_callback_t compare) {
 	size_t length = list_length(list);
 	DOTIMES(i, length) {
@@ -413,6 +414,7 @@ int compare_conses(const cons_t *left, const cons_t *right) {
 	size_t length = ((left_length > right_length) ? right_length : left_length);
 	DOTIMES(i, length) {
 		char difference = toupper(left->key[i]) - toupper(right->key[i]);
+		if (difference == 0) difference = left->key[i] - right->key[i];
 		if (difference != 0) return difference;
 	}
 	// If equal so far, then go off of lengths.
@@ -487,7 +489,7 @@ const cons_t *eval(const cons_t *dict, const cons_t *ast) {
 			else if (ast->key[1] == 'f') {
 				// GC so that we only print the true memory available.
 				// GC should be safe here because we have made no changes to `dict`.
-				garbageCollect();
+				/**/ garbageCollect();
 				printFree();
 				return dict;
 			}
@@ -511,7 +513,7 @@ int main(int argc, char *argv[]) {
 	/**/ printWelcome();
 	while (run) {
 		dictionary = eval(dictionary, parse(NULL, readline("> ")));
-		garbageCollect();
+		/**/ garbageCollect();
 	}
 	return 0;
 }
