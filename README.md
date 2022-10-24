@@ -188,6 +188,6 @@ I used a somewhat functional programming style when working with lists. Instead 
 | 2022-10-22 |  3:37 PM |  3:50 PM | Started on REPL. |
 | 2022-10-22 |  4:00 PM |  6:30 PM | Finished REPL. Did a little testing. Program is finished for the most part. |
 | 2022-10-22 |  7:05 PM |  7:08 PM | Touched up the code and comments. |
-| 2022-10-22 |  3:49 PM |  5:15 PM | Created README. |
-| 2022-10-22 |  5:15 PM |  6:22 PM | Completed this table and the sections above. |
+| 2022-10-23 |  3:49 PM |  5:15 PM | Created README. |
+| 2022-10-23 |  5:15 PM |  6:22 PM | Completed this table and the sections above. |
 
