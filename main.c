@@ -43,7 +43,7 @@ void garbageCollect(void) {
 	trace(*root);
 }
 
-size_t freeConses(void) {
+size_t getFreeConses(void) {
 	size_t f = 0;
 	DOTIMES(i, HEAP_SIZE) {
 		if (heap[i].free) {
@@ -335,6 +335,7 @@ const cons_t *insertionSort(const cons_t *list, sort_callback_t compare) {
 			const cons_t *right = left->cdr;
 			const cons_t *right_child = right->cdr;
 			if (compare(left, right) < 0) break;
+			// `heap[c - heap]` removes `const` from `c`, allowing `c->cdr` to be modified.
 			if (left_parent != NULL) heap[left_parent - heap].cdr = right;
 			else list = right;
 			heap[right - heap].cdr = left;
@@ -369,7 +370,7 @@ char *readline(const char *prompt) {
 }
 
 void printFree(void) {
-	printf("Free: %lu\n", freeConses());
+	printf("Free: %lu\n", getFreeConses());
 }
 
 void printHelp(void) {
