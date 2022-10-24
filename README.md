@@ -156,3 +156,38 @@ And finally, quit the program either using ^C or `?q`.
 > ?q
 $
 ```
+
+## What parts of this project did you find easy?
+
+Parser: I've written parsers before using this same method, so it was a breeze to write.  
+Evaluator: Simple verb-noun evaluators like I used are easy to make.  
+Documentation: It's a small program, so it wasn't hard to write.  
+
+## What parts of this project did you find challenging?
+
+I didn't encounter anything truly challenging, though there were a few times where bugs and spec misinterpretation slowed me down.
+
+I forgot that when the garbage collector is run, any conses that cannot be reached from the root will be marked as free. I attempted to add temporary roots before running GC, but I settled on the simpler solution of only running the GC once after each time the user's command has been fully evaluated. This approach requires a lot of memory, but I think the cost is worth it since I can easily add more.
+
+I used a somewhat functional programming style when working with lists. Instead of moving links around in the list, I would just create a new one arranged how I needed it. Unfortunately, the specification required that I perform the sort by "reassigning pointer links", which meant that I had to mutate the list in the sorting function. Even though the functional model didn't work there, the mutable sort required much less memory than the original algorithm I used.
+
+## Log
+
+| Start Date | Start    | Finish   | Description |
+|------------|---------:|---------:|:------------|
+| 2022-10-21 |  6:45 PM |  7:00 PM | Contemplated the specification whilst dining upon a savory Double Western Bacon Cheeseburger®. |
+| 2022-10-21 | 10:45 PM | 10:58 PM | Setup DPST, Git, build script, and create `main`. (Note: I used my own development environment and pasted into Replit since that's easier than developing in Replit's editor. Full source code is at "https://github.com/oitzujoey/dpst-challenge".) |
+| 2022-10-21 | 11:01 PM | 11:11 PM | Started project. Started work on cons. |
+| 2022-10-22 | 12:08 AM | 12:22 AM | Continued work on cons. Started on parser. |
+| 2022-10-22 | 12:24 AM |  1:35 AM | Continued work on parser. Started sorter. |
+| 2022-10-22 |  1:35 AM |  1:53 AM | Wrote a little documentation. |
+| 2022-10-22 | 12:46 PM | 12:58 PM | Finished sort. |
+| 2022-10-22 | 12:58 PM |  1:49 PM | Added garbage collection. |
+| 2022-10-22 |  1:49 PM |  2:15 PM | Added search. |
+| 2022-10-22 |  2:15 PM |  3:07 PM | Added stdin. |
+| 2022-10-22 |  3:37 PM |  3:50 PM | Started on REPL. |
+| 2022-10-22 |  4:00 PM |  6:30 PM | Finished REPL. Did a little testing. Program is finished for the most part. |
+| 2022-10-22 |  7:05 PM |  7:08 PM | Touched up the code and comments. |
+| 2022-10-22 |  3:49 PM |  5:15 PM | Created README. |
+| 2022-10-22 |  5:15 PM |  6:22 PM | Completed this table and the sections above. |
+
